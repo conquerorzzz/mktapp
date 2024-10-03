@@ -7,7 +7,7 @@
           <span class="stepName">{{item.title}}</span>
         </template>
         <div class="desc">{{item.desc}}</div>
-        <div class="operate-btn" @click="connect()">去交互</div>
+        <div class="operate-btn" @click="connect()">{{$t('interaction')}}</div>
         </el-collapse-item>
     </el-collapse>
     <div class="project">
@@ -24,9 +24,16 @@
 <script lang="ts" setup>
 /* eslint-disable */
 import { ref, watch, onMounted, computed } from 'vue'
-import { connectMetaMask } from '@/utils/index.ts'
-import { useUserStore } from '@/store/userStore';
+import { connectMetaMask, connectTon } from '@/utils/index.ts'
+import { useUserStore } from '@/store/userStore'
+import { TonConnect } from '@tonconnect/sdk';
+import axiosInstance from '@/utils/axios.ts'
+const tonConnect = new TonConnect();
 const userStore = useUserStore();
+onMounted(async() => {
+  await axiosInstance.get('/user/getcode/0x0d29bb364c79965e18bf1d044099c50173ea4cfb');
+  await axiosInstance.get('/activity/1');
+})
 const props = defineProps({
   steps: Array,
   project: Object,
@@ -35,7 +42,34 @@ const props = defineProps({
 const activeNames = ref(['0'])
 const connect = async ()=>{
   await connectMetaMask(userStore)
-  console.log('userStore',userStore)
+  console.log('userStore.$state.address',userStore.$state.address)
+  try {
+        const data = {
+          user_address: userStore.$state.address,
+          invite_code: "y1HuMg",
+          project_id: 1
+        }
+        const dataV = {
+          user_address: userStore.$state.address,
+          project_id: 1
+        }
+        const dataTask  = {
+          user_address: userStore.$state.address,
+          project_id: 1,
+          steps_status: [1,2]
+        }
+        const response = await axiosInstance.post('/user/jointask',data);
+        const vRes = await axiosInstance.post('/user/verifytask',dataV);
+        const tRes = await axiosInstance.post('/user/dotask',dataTask);
+        const codeRes = await axiosInstance.get('/user/getcode/' + userStore.$state.address);
+        if(codeRes.status === 1) {
+          userStore.setCode(codeRes.data)
+        }
+        console.log('userStore',userStore)
+        console.log(response.data);
+      } catch (error) {
+        console.error('Request failed:', error);
+  }
 }
 </script>
 

@@ -3,7 +3,7 @@
     <div class="info">
       <div class="title">
         <div class="img">
-          <img alt="Vue logo" src="@/assets/logo.png">
+          <img alt="Vue logo" src="@/assets/logow.png">
         </div>
         <div class="name">
           <div class="text">{{basicInfo.Title}}</div>
@@ -16,11 +16,11 @@
       <div class="desc">{{basicInfo.Desc}}</div>
       <div class="status">
         <div class="rewards item">
-          <div class="title">奖励</div>
+          <div class="title">{{$t('reward')}}</div>
           <div class="number">{{basicInfo.Bonus}}</div>
         </div>
         <div class="totalJoined item">
-          <div class="title">参与人数</div>
+          <div class="title">{{$t('participants')}}</div>
           <div class="number">{{basicInfo.Participants}}</div>
         </div>
       </div>
@@ -28,19 +28,19 @@
     <div class="data">
       <div class="switch-btn">
         <div @click="switchFlag = 0" :class="switchFlag==0 ? 'item active': 'item'">
-          <div>交互步骤</div>
+          <div>{{$t('step')}}</div>
           <div class="line"></div>
         </div>
         <div @click="switchFlag = 1" :class="switchFlag==1 ? 'item active': 'item'">
-          <div>排行榜</div>
+          <div>{{$t('rank')}}</div>
           <div class="line"></div>
         </div>
       </div>
       <step-view v-if="switchFlag === 0" :steps="basicInfo.Steps" :project="basicInfo.project" :status="basicInfo.Status"></step-view>
       <rank-view v-if="switchFlag === 1"></rank-view>
       <div class="final">
-        <div class="desc">*完成全部任务后，点击验证通过即可领取奖励</div>
-        <div class="verify btn" v-if="basicInfo.Status === 0">验证</div>
+        <div class="desc">{{$t('verifyMsg')}}</div>
+        <div class="verify btn" v-if="basicInfo.Status === 0">{{$t('verify')}}</div>
         <div class="finished btn" v-if="basicInfo.Status === 1">已参加</div>
       </div>
     </div>
@@ -85,6 +85,7 @@ const switchFlag = ref(0)
           color: #333333;
           line-height: 24px;
           font-weight: 700;
+          text-align: left;
         }
         .time {
           font-family: HarmonyOS_Sans;
@@ -119,6 +120,7 @@ const switchFlag = ref(0)
       font-weight: 400;
       margin-top: 10px;
       margin-bottom: 20px;
+      text-align: left;
     }
     .status {
       display: flex;
@@ -197,7 +199,7 @@ const switchFlag = ref(0)
         font-size: 12px;
         color: #959A9F;
         letter-spacing: 0;
-        text-align: center;
+        text-align: left;
         font-weight: 400;
       }
       .btn {

@@ -6,7 +6,8 @@ export const useUserStore = defineStore('user', {
     walletName: '',
     connected: false,
     netName: '',
-    address: ''
+    address: '',
+    code: ''
   }),
   
   getters: {
@@ -25,5 +26,8 @@ export const useUserStore = defineStore('user', {
     setNetName(name: string) {
       this.netName = name;
     },
+    setCode(code: string) {
+      this.code = code
+    }
   },
 });

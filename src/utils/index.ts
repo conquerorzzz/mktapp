@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { ethers } from 'ethers';
+import { TonConnect } from '@tonconnect/sdk';
 
 
 export function formatDate(time: Date | number | string | undefined, format: string = "yyyy-MM-dd HH:mm:ss"): string | number {
@@ -56,7 +57,6 @@ export const connectMetaMask = async (userStore:any) => {
     
     try {
       const [selectedAccount] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      
       debugger
       userStore.setAddress(selectedAccount);
       userStore.setConnect(true);
@@ -72,3 +72,27 @@ export const connectMetaMask = async (userStore:any) => {
       console.error('connect MetaMask failed:', error);
     }
   };
+
+// export const connectTon = async(userStore:any) => {
+//   const tonConnect = new TonConnect();
+//   try {
+//     await tonConnect.connectWallet();
+
+//     const wallet = tonConnect.wallet;
+//     if (wallet) {
+//       userStore.setAddress(wallet.account.address)
+//       userStore.setConnect(true);
+//     } else {
+//       alert('failed');
+//     }
+//     tonConnect.on('statusChange', (status:any) => {
+//       if (status === 'connected') {
+//         console.log('已连接');
+//       } else if (status === 'disconnected') {
+//         console.log('已断开连接');
+//       }
+//     });
+//   } catch (error) {
+//     console.error('failed:', error);
+//   }
+// }
