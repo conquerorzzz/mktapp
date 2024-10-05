@@ -2,24 +2,24 @@
   <div class="rank">
     <div class="data">
       <div class="item">
-        <div class="title">我的分享</div>
+        <div class="title">{{$t('myShare')}}</div>
         <div class="value">{{userInfo.me.share_count}}</div>
       </div>
       <div class="item">
-        <div class="title">已注册人数</div>
+        <div class="title">{{$t('registeredUsers')}}</div>
         <div class="value">{{userInfo.me.invitor_count}}</div>
       </div>
       <div class="item">
-        <div class="title">我的预估奖励</div>
+        <div class="title">{{$t('myEstimatedRewards')}}</div>
         <div class="value">{{userInfo.me.estimate_rewards}}</div>
       </div>
-      <div v-if="userInfo.me.final_status === 1" class="status1 status"><span>进行中</span></div>
-      <div v-if="userInfo.me.final_status === 2" class="status2 status"><span>待发放</span></div>
-      <div v-if="userInfo.me.final_status === 3" class="status3 status"><span>已发放</span></div>
+      <div v-if="userInfo.me.final_status === 1" class="status1 status"><span>{{$t('inProgress')}}</span></div>
+      <div v-if="userInfo.me.final_status === 2" class="status2 status"><span>{{$t('pendingDistribution')}}</span></div>
+      <div v-if="userInfo.me.final_status === 3" class="status3 status"><span>{{$t('distributed')}}</span></div>
     </div>
     <div class="table">
       <el-table :data="userInfo.rank" style="width: 100%">
-        <el-table-column prop="rank" label="排名" width="30">
+        <el-table-column prop="rank" :label="$t('ranking')" width="30">
           <template #default="scope">
             <div v-if="scope.row.rank === 1" class="first">{{ scope.row.rank }}</div>
             <div v-if="scope.row.rank === 2" class="second">{{ scope.row.rank }}</div>
@@ -27,28 +27,28 @@
             <div v-if="scope.row.rank > 3" class="other">{{ scope.row.rank }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="user_address" label="地址" width="80">
+        <el-table-column prop="user_address" :label="$t('Address')" width="80">
           <template #default="scope">{{ getAddress(scope.row.user_address) }}</template>
         </el-table-column>
-        <el-table-column prop="share_count" label="分享人数" width="65">
+        <el-table-column prop="share_count" :label="$t('numberOfShares')" width="55">
           <template #header>
-            <div class="right">分享人数</div>
+            <div class="right">{{$t('numberOfShares')}}</div>
           </template>
           <template #default="scope">
             <div class="right">{{ scope.row.share_count }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="invitor_count" class="right" label="注册人数" width="65">
+        <el-table-column prop="invitor_count" class="right" :label="$t('numberOfRegistrations')" width="85">
           <template #header>
-            <div class="right">注册人数</div>
+            <div class="right">{{$t('numberOfRegistrations')}}</div>
           </template>
           <template #default="scope">
             <div class="right">{{ scope.row.invitor_count }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="estimate_rewards" label="预估奖励" >
+        <el-table-column prop="estimate_rewards" :label="$t('estimatedRewards')" >
           <template #header>
-            <div class="right">预估奖励</div>
+            <div class="right">{{$t('estimatedRewards')}}</div>
           </template>
           <template #default="scope">
             <div class="right">${{ scope.row.estimate_rewards }}</div>
@@ -87,7 +87,7 @@ const getAddress = ($address) => {
       display: flex;
       flex-direction: column;
       .title {
-        font-family: PingFangSC-Regular;
+        font-family: PingFangSC-Regular,sans-serif;
         font-size: 12px;
         color: #959A9F;
         line-height: 16px;
@@ -96,7 +96,7 @@ const getAddress = ($address) => {
         text-align: left;
       }
       .value {
-        font-family: HarmonyOS_Sans;
+        font-family: "HarmonyOS_Sans",sans-serif;
         font-size: 14px;
         color: #333333;
         line-height: 20px;
@@ -105,13 +105,13 @@ const getAddress = ($address) => {
       }
     }
     .status {
-      width: 36px;
+      width: 80px;
       height: 14px;
       position: absolute;
       top: 0;
       right: 0;
       border-radius: 0 4px 0 6px;
-      font-family: PingFangSC-Regular;
+      font-family: PingFangSC-Regular,sans-serif;
       font-size: 10px;
       color: #FFFFFF;
       letter-spacing: 0;
@@ -137,7 +137,7 @@ const getAddress = ($address) => {
       height: 16px;
       background-image: linear-gradient(40deg, #F9F23D 0%, #FBBD1F 77%);
       border-radius: 8px;
-      font-family: HarmonyOS_Sans_Medium;
+      font-family: "HarmonyOS_Sans_Medium",sans-serif;
       font-size: 10px;
       color: #FFFFFF;
       letter-spacing: 0;
@@ -150,7 +150,7 @@ const getAddress = ($address) => {
       height: 16px;
       background-image: linear-gradient(38deg, #EBEBEB 0%, #CACACA 60%);
       border-radius: 8px;
-      font-family: HarmonyOS_Sans_Medium;
+      font-family: "HarmonyOS_Sans_Medium",sans-serif;
       font-size: 10px;
       color: #FFFFFF;
       letter-spacing: 0;
@@ -163,7 +163,7 @@ const getAddress = ($address) => {
       height: 16px;
       background-image: linear-gradient(205deg, #FBCF48 0%, #F27226 100%);
       border-radius: 8px;
-      font-family: HarmonyOS_Sans_Medium;
+      font-family: "HarmonyOS_Sans_Medium",sans-serif;
       font-size: 10px;
       color: #FFFFFF;
       letter-spacing: 0;
@@ -175,7 +175,7 @@ const getAddress = ($address) => {
       width: 16px;
       height: 16px;
       border-radius: 8px;
-      font-family: HarmonyOS_Sans;
+      font-family: "HarmonyOS_Sans",sans-serif;
       font-size: 14px;
       color: #959A9F;
       line-height: 16px;

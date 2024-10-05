@@ -53,7 +53,20 @@ import stepView from '@/components/stepView.vue' // @ is an alias to /src
 import rankView from '@/components/rankView.vue' // @ is an alias to /src
 import { basicInfo } from '@/utils/value.ts'
 import { formatDate } from '@/utils/index.ts'
+import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+const route = useRoute()
+const router = useRouter()
 const switchFlag = ref(0)
+const { t, locale } = useI18n()
+const switchLanguage = (lang) => {
+  locale.value = lang
+}
+onMounted(() => {
+  if (route.query.lang && route.query.lang === 'zh') {
+    switchLanguage('zh')
+  }
+})
 </script>
 <style lang="scss" scoped>
 .home{
@@ -80,7 +93,7 @@ const switchFlag = ref(0)
         align-items: baseline;
         width: 235px;
         .text {
-          font-family: HarmonyOS_Sans_Bold;
+          font-family: "HarmonyOS_Sans_Bold",sans-serif;
           font-size: 22px;
           color: #333333;
           line-height: 24px;
@@ -88,7 +101,7 @@ const switchFlag = ref(0)
           text-align: left;
         }
         .time {
-          font-family: HarmonyOS_Sans;
+          font-family: "HarmonyOS_Sans",sans-serif;
           font-size: 12px;
           color: #959A9F;
           font-weight: 400;
@@ -103,7 +116,7 @@ const switchFlag = ref(0)
           height: 16px;
           background: #286DFF;
           border-radius: 2px;
-          font-family: PingFangSC-Regular;
+          font-family: PingFangSC-Regular,sans-serif;
           font-size: 10px;
           color: #FFFFFF;
           font-weight: 400;
@@ -113,7 +126,7 @@ const switchFlag = ref(0)
       }
     }
     .desc {
-      font-family: PingFangSC-Regular;
+      font-family: PingFangSC-Regular,sans-serif;
       font-size: 12px;
       color: #959A9F;
       line-height: 20px;
@@ -136,7 +149,7 @@ const switchFlag = ref(0)
         align-items: center;
         justify-content: center;
         .title {
-          font-family: PingFangSC-Regular;
+          font-family: PingFangSC-Regular,sans-serif;
           font-size: 12px;
           color: #959A9F;
           line-height: 16px;
@@ -144,7 +157,7 @@ const switchFlag = ref(0)
           margin-top: 0;
         }
         .number {
-          font-family: PingFangSC-Medium;
+          font-family: PingFangSC-Medium,sans-serif;
           font-size: 14px;
           color: #333333;
           line-height: 20px;
@@ -164,7 +177,7 @@ const switchFlag = ref(0)
         display: flex;
         flex-direction: column;
         align-items:center;
-        font-family: PingFangSC-Medium;
+        font-family: PingFangSC-Medium,sans-serif;
         font-size: 16px;
         color: #959A9F;
         font-weight: 500;
@@ -177,7 +190,7 @@ const switchFlag = ref(0)
         }
       }
       .active {
-        font-family: PingFangSC-Medium;
+        font-family: PingFangSC-Medium,sans-serif;
         font-size: 16px;
         color: #333333;
         font-weight: 500;
@@ -195,7 +208,7 @@ const switchFlag = ref(0)
       margin-top: 20px;
       margin-bottom: 35px;
       .desc {
-        font-family: PingFangSC-Regular;
+        font-family: PingFangSC-Regular,sans-serif;
         font-size: 12px;
         color: #959A9F;
         letter-spacing: 0;

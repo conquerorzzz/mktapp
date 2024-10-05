@@ -49,10 +49,24 @@ nav {
   padding: 0 0 11px 0;
 }
 .rank .el-table th.el-table__cell {
-  font-family: PingFangSC-Regular;
+  font-family: PingFangSC-Regular,sans-serif;
   font-size: 12px;
   color: #959A9F;
   line-height: 16px;
   font-weight: 400;
+}
+@font-face {
+  font-family: 'HarmonyOS_Sans';
+  src: url('@/assets/fonts/HarmonyOS_Sans/HarmonyOS_Sans_Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'HarmonyOS_Sans_Medium';
+  src: url('@/assets/fonts/HarmonyOS_Sans/HarmonyOS_Sans_Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'HarmonyOS_Sans_Bold';
+  src: url('@/assets/fonts/HarmonyOS_Sans/HarmonyOS_Sans_Bold.ttf') format('truetype');
 }
 </style>

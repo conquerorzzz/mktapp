@@ -92,7 +92,7 @@ const connect = async ()=>{
       height: 16px;
       background: #286DFF;
       border-radius: 8px;
-      font-family: PingFangSC-Medium;
+      font-family: PingFangSC-Medium,sans-serif;
       font-size: 12px;
       color: #FFFFFF;
       line-height: 16px;
@@ -103,7 +103,7 @@ const connect = async ()=>{
     }
     .desc {
       text-align: left;
-      font-family: PingFangSC-Regular;
+      font-family: PingFangSC-Regular,sans-serif;
       font-size: 14px;
       color: #959A9F;
       line-height: 20px;
@@ -117,7 +117,7 @@ const connect = async ()=>{
       text-align: center;
       background: #286DFF;
       border-radius: 17px;
-      font-family: PingFangSC-Regular;
+      font-family: PingFangSC-Regular,sans-serif;
       font-size: 14px;
       color: #FFFFFF;
       letter-spacing: 0;
@@ -130,7 +130,7 @@ const connect = async ()=>{
   .project {
     margin-top:20px;
     .desc {
-      font-family: PingFangSC-Regular;
+      font-family: PingFangSC-Regular,sans-serif;
       font-size: 12px;
       color: #959A9F;
       letter-spacing: 0;
@@ -151,7 +151,7 @@ const connect = async ()=>{
     margin-top: 20px;
     margin-bottom: 35px;
     .desc {
-      font-family: PingFangSC-Regular;
+      font-family: PingFangSC-Regular,sans-serif;
       font-size: 12px;
       color: #959A9F;
       letter-spacing: 0;
