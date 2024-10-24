@@ -11,7 +11,7 @@ const messages = {
     rank: 'Rank',
     interaction: 'Interaction',
     verify: 'Verify',
-    verifyMsg: '*After completing all tasks, click Verify Pass to receive the reward',
+    verifyMsg: '*After completing all tasks, click verify to claim your reward.',
     myShare: 'My Share',
     registeredUsers: 'Registered Users',
     myEstimatedRewards: 'My Est. Rewards',
@@ -23,6 +23,9 @@ const messages = {
     numberOfShares: 'Shares',
     numberOfRegistrations: 'Registrations',
     estimatedRewards: 'Est. Rewards',
+    downloadMsg: 'Tip',
+    downloadDesc: 'Open Ave app to view the page',
+    downloadBtn: 'Open Now',
   },
   zh: {
     reward: '奖励',
@@ -43,6 +46,9 @@ const messages = {
     numberOfShares: '分享人数',
     numberOfRegistrations: '注册人数',
     estimatedRewards: '预估奖励',
+    downloadMsg: '提示',
+    downloadDesc: '请打开Ave客户端查看',
+    downloadBtn: '立即前往',
   },
 };
 

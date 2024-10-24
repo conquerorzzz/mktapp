@@ -28,14 +28,25 @@ nav {
     }
   }
 }
+.el-drawer {
+  border-radius: 28px 28px 0 0 !important;
+}
+.el-drawer__body {
+  padding: 0 !important;
+}
 .steps .el-collapse-item__header.is-active {
   background: #F8F8F8;
 }
 .steps .el-collapse-item__wrap {
   background: #F8F8F8;
+  border-bottom: none;
 }
 .steps .el-collapse-item__header {
   background: #F8F8F8;
+  border-bottom: none;
+}
+.steps .el-collapse-item__content {
+  padding-bottom: 16px !important;
 }
 .rank .el-table .cell {
   padding: 0;
@@ -54,6 +65,9 @@ nav {
   color: #959A9F;
   line-height: 16px;
   font-weight: 400;
+}
+.rank .el-table--border .el-table__inner-wrapper:after, .el-table--border:after, .el-table--border:before, .el-table__inner-wrapper:before {
+  background-color: rgba(0,0,0,0) !important;
 }
 @font-face {
   font-family: 'HarmonyOS_Sans';

@@ -53,25 +53,48 @@ export function formatDate(time: Date | number | string | undefined, format: str
     }
   }
 export const connectMetaMask = async (userStore:any) => {
-    checkMetaMask();
-    
-    try {
-      const [selectedAccount] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      debugger
-      userStore.setAddress(selectedAccount);
-      userStore.setConnect(true);
+  console.log("window",window)
+  console.log("window tw",window._tw_)
+  // console.log("window tw gotoConnectWallet",window._tw_.gotoConnectWallet)
+  // let address
+  // if (window._tw_ && typeof window._tw_.gotoConnectWallet === 'function') {
+  //   address =  window._tw_.gotoConnectWallet()
+  // }
+  try {
+    const [selectedAccount] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    alert(selectedAccount)
+    userStore.setAddress(selectedAccount);
+    userStore.setConnect(true);
 
-      window.ethereum.on('accountsChanged', (accounts: string[]) => {
-        userStore.setAddress(accounts[0]);
-      });
-      window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-      });
-  
-    } catch (error) {
-      console.error('connect MetaMask failed:', error);
-    }
-  };
+    window.ethereum.on('accountsChanged', (accounts: string[]) => {
+      console.log("accountsChanged",accounts[0])
+      userStore.setAddress(accounts[0]);
+    });
+    window.ethereum.on('chainChanged', () => {
+      console.log("chainChanged")
+      window.location.reload();
+    });
+
+  } catch (error) {
+    console.error('connect MetaMask failed:', error);
+  }
+};
+
+export const uploadToFile = async (file:any) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch('https://api.imgur.com/3/upload', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Client-ID f3fca3dbe570bfc',  // 替换为你的Client ID
+    },
+    body: formData,
+  });
+
+  const data = await response.json();
+  console.log('Imgur URL:', data.data.link);
+}
 
 // export const connectTon = async(userStore:any) => {
 //   const tonConnect = new TonConnect();

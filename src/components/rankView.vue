@@ -3,22 +3,22 @@
     <div class="data">
       <div class="item">
         <div class="title">{{$t('myShare')}}</div>
-        <div class="value">{{userInfo.me.share_count}}</div>
+        <div class="value">{{userInfo.share_count}}</div>
       </div>
       <div class="item">
         <div class="title">{{$t('registeredUsers')}}</div>
-        <div class="value">{{userInfo.me.invitor_count}}</div>
+        <div class="value">{{userInfo.invitor_count}}</div>
       </div>
       <div class="item">
         <div class="title">{{$t('myEstimatedRewards')}}</div>
-        <div class="value">{{userInfo.me.estimate_rewards}}</div>
+        <div class="value">{{userInfo.estimate_rewards}}</div>
       </div>
-      <div v-if="userInfo.me.final_status === 1" class="status1 status"><span>{{$t('inProgress')}}</span></div>
-      <div v-if="userInfo.me.final_status === 2" class="status2 status"><span>{{$t('pendingDistribution')}}</span></div>
-      <div v-if="userInfo.me.final_status === 3" class="status3 status"><span>{{$t('distributed')}}</span></div>
+      <div v-if="userInfo.final_status === 1" class="status1 status"><span>{{$t('inProgress')}}</span></div>
+      <div v-if="userInfo.final_status === 2" class="status2 status"><span>{{$t('pendingDistribution')}}</span></div>
+      <div v-if="userInfo.final_status === 3" class="status3 status"><span>{{$t('distributed')}}</span></div>
     </div>
     <div class="table">
-      <el-table :data="userInfo.rank" style="width: 100%">
+      <el-table :data="rankList" style="width: 100%" height="calc(100vh - 500px)">
         <el-table-column prop="rank" :label="$t('ranking')" width="30">
           <template #default="scope">
             <div v-if="scope.row.rank === 1" class="first">{{ scope.row.rank }}</div>
@@ -27,10 +27,10 @@
             <div v-if="scope.row.rank > 3" class="other">{{ scope.row.rank }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="user_address" :label="$t('Address')" width="80">
+        <el-table-column prop="user_address" :label="$t('Address')" width="85">
           <template #default="scope">{{ getAddress(scope.row.user_address) }}</template>
         </el-table-column>
-        <el-table-column prop="share_count" :label="$t('numberOfShares')" width="55">
+        <el-table-column prop="share_count" :label="$t('numberOfShares')" width="50">
           <template #header>
             <div class="right">{{$t('numberOfShares')}}</div>
           </template>
@@ -60,8 +60,43 @@
 </template>
 
 <script lang="ts" setup>
+/* eslint-disable */
 import { ref, watch, onMounted, computed } from 'vue'
-import { userInfo } from '@/utils/value.ts'
+import axiosInstance from '@/utils/axios.ts'
+import { useUserStore } from '@/store/userStore'
+import { useRoute, useRouter } from 'vue-router'
+const route = useRoute()
+const userStore = useUserStore();
+const props = defineProps({
+  rank: Array
+})
+const rankList = ref([])
+const lang = ref('en')
+const userInfo = ref({
+  share_count: 0,
+  invitor_count: 0,
+  final_status: -1,
+  estimate_rewards: 0,
+})
+
+
+onMounted( async () => {
+  if (route.query.lang && route.query.lang === 'zh') {
+    lang.value = 'zh'
+  } else {
+    lang.value = 'en'
+  }
+  if (route.query.activity_id) {
+    const { data } = await axiosInstance.get('/activity/rank/'+route.query.activity_id)
+    rankList.value = data.data
+    if (userStore.$state.address) {
+      const { data } = await axiosInstance.get('/user/activity/'+route.query.activity_id + '/' + userStore.$state.address )
+    }
+  } else {
+    alert('no activity_id')
+    window._tw_.back()
+  }
+})
 const getAddress = ($address) => {
   const addressHead = $address.substr(0, 5)
   const addressTail = $address.split('').reverse().join('').substr(0, 4).split('').reverse().join('').substr(0, 4).split('').join('')
@@ -105,7 +140,6 @@ const getAddress = ($address) => {
       }
     }
     .status {
-      width: 80px;
       height: 14px;
       position: absolute;
       top: 0;
@@ -117,6 +151,9 @@ const getAddress = ($address) => {
       letter-spacing: 0;
       font-weight: 400;
       line-height: 14px;
+      span{
+        padding: 0 3px;
+      }
     }
     .status1 {
       background: #286DFF;
@@ -132,6 +169,7 @@ const getAddress = ($address) => {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
+    padding-bottom: 90px;
     .first {
       width: 16px;
       height: 16px;
